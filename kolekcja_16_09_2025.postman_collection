@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "6fac7c94-953f-463f-8d58-7cc9749344e5",
+		"name": "Simple Books API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5343143",
+		"_collection_link": "https://test44-2152.postman.co/workspace/codebrainers_tester~d642a0f7-5f20-4636-8797-1c7c99aace85/collection/5343143-6fac7c94-953f-463f-8d58-7cc9749344e5?action=share&source=collection_link&creator=5343143"
+	},
+	"item": [
+		{
+			"name": "1. Hello Simple Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let return_code = pm.environment.get(\"correct_code\");\r",
+							"// let return_code = 200;\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}",
+					"host": [
+						"{{simple_books_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Hello Simple Books - Wrong URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}/123141asdadasd1rafasd",
+					"host": [
+						"{{simple_books_url}}"
+					],
+					"path": [
+						"123141asdadasd1rafasd"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get All Orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}/orders",
+					"host": [
+						"{{simple_books_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Get Authentication Bearer",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientName\": \"{{$randomFirstName}}{{$randomLastName}}\",\r\n    \"clientEmail\": \"{{$randomLastName}}@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}/api-clients/",
+					"host": [
+						"{{simple_books_url}}"
+					],
+					"path": [
+						"api-clients",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Get All Orders - with auth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ef89918a02029588ae01d90f026a4a287050a9afdf5c7287cb1da0c803febd3d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}/orders",
+					"host": [
+						"{{simple_books_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Get Specific Order",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer 77baea16ac2621873588d55162e3e92ef819dcc1ed7c4de4807479242f362572",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/order/:orderId",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Delete Specific Order Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer 77baea16ac2621873588d55162e3e92ef819dcc1ed7c4de4807479242f362572",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {}
+				},
+				"url": {
+					"raw": "{{simple_books_url}}/order/:orderId",
+					"host": [
+						"{{simple_books_url}}"
+					],
+					"path": [
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NBP kursy walut",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.nbp.pl/api/exchangerates/tables/A",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nbp",
+						"pl"
+					],
+					"path": [
+						"api",
+						"exchangerates",
+						"tables",
+						"A"
+					]
+				},
+				"description": "## API Endpoint: Get Exchange Rates Table A\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `https://api.nbp.pl/api/exchangerates/tables/A`\n    \n\n### Description\n\nThis endpoint retrieves the current exchange rates table labeled as \"A\" from the National Bank of Poland (NBP). The request does not require any parameters and is made using the HTTP GET method.\n\n### Response\n\nOn a successful request, the API returns a JSON response with the following structure:\n\n- **table**: (string) The identifier of the exchange rates table.\n    \n- **no**: (string) The table number.\n    \n- **effectiveDate**: (string) The date on which the exchange rates are effective.\n    \n- **rates**: (array) A list of currency rates, where each entry contains:\n    \n    - **currency**: (string) The name of the currency.\n        \n    - **code**: (string) The currency code.\n        \n    - **mid**: (number) The mid exchange rate for the currency.\n        \n\n### Notes\n\n- Ensure that the request is made to the correct endpoint to receive the latest exchange rates.\n    \n- The response will contain an array of rates, which can be used for various financial calculations or currency conversions.\n    \n- The response status will be 200 for successful requests, indicating that the data has been retrieved without any issues."
+			},
+			"response": []
+		},
+		{
+			"name": "NBP kursy walut 1",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.nbp.pl/api/exchangerates/tables/A?format=json",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nbp",
+						"pl"
+					],
+					"path": [
+						"api",
+						"exchangerates",
+						"tables",
+						"A"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				},
+				"description": "## API Endpoint: Get Exchange Rates Table A\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `https://api.nbp.pl/api/exchangerates/tables/A`\n    \n\n### Description\n\nThis endpoint retrieves the current exchange rates table labeled as \"A\" from the National Bank of Poland (NBP). The request does not require any parameters and is made using the HTTP GET method.\n\n### Response\n\nOn a successful request, the API returns a JSON response with the following structure:\n\n- **table**: (string) The identifier of the exchange rates table.\n    \n- **no**: (string) The table number.\n    \n- **effectiveDate**: (string) The date on which the exchange rates are effective.\n    \n- **rates**: (array) A list of currency rates, where each entry contains:\n    \n    - **currency**: (string) The name of the currency.\n        \n    - **code**: (string) The currency code.\n        \n    - **mid**: (number) The mid exchange rate for the currency.\n        \n\n### Notes\n\n- Ensure that the request is made to the correct endpoint to receive the latest exchange rates.\n    \n- The response will contain an array of rates, which can be used for various financial calculations or currency conversions.\n    \n- The response status will be 200 for successful requests, indicating that the data has been retrieved without any issues."
+			},
+			"response": []
+		},
+		{
+			"name": "Google Example",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.google.com/search?q=codebrainers",
+					"protocol": "https",
+					"host": [
+						"www",
+						"google",
+						"com"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "codebrainers"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
